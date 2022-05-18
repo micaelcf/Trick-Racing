@@ -1,0 +1,81 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://hud/font_theme.tres" type="DynamicFont" id=1]
+[ext_resource path="res://hud/pause_hud.gd" type="Script" id=2]
+[ext_resource path="res://assets/icons8-música-80.png" type="Texture" id=3]
+
+[node name="pause" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1280.0
+margin_bottom = 720.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 0.352941 )
+
+[node name="cont" type="RichTextLabel" parent="."]
+margin_left = 440.0
+margin_top = 240.0
+margin_right = 840.0
+margin_bottom = 360.0
+rect_pivot_offset = Vector2( 200, 60 )
+custom_fonts/normal_font = ExtResource( 1 )
+text = "
+ CONTINUE
+"
+
+[node name="menu" type="RichTextLabel" parent="."]
+margin_left = 410.0
+margin_top = 360.0
+margin_right = 810.0
+margin_bottom = 480.0
+rect_min_size = Vector2( 400, 120 )
+rect_pivot_offset = Vector2( 200, 60 )
+custom_fonts/normal_font = ExtResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]
+MAIN MENU"
+text = "
+MAIN MENU"
+
+[node name="cont_but" type="TextureButton" parent="."]
+margin_left = 456.0
+margin_top = 272.0
+margin_right = 752.0
+margin_bottom = 312.0
+mouse_default_cursor_shape = 2
+
+[node name="menu_but" type="TextureButton" parent="."]
+margin_left = 448.0
+margin_top = 392.0
+margin_right = 776.0
+margin_bottom = 432.0
+mouse_default_cursor_shape = 2
+
+[node name="music_but" type="TextureButton" parent="."]
+margin_left = 1152.0
+margin_top = 64.0
+margin_right = 1216.0
+margin_bottom = 128.0
+toggle_mode = true
+pressed = true
+
+[node name="ico" type="Sprite" parent="music_but"]
+position = Vector2( 32, 32 )
+scale = Vector2( 0.799999, 0.8 )
+texture = ExtResource( 3 )
+
+[node name="Polygon2D" type="Polygon2D" parent="music_but"]
+visible = false
+position = Vector2( 31.3445, 31.3445 )
+rotation = -0.785398
+scale = Vector2( 2.20845, 1 )
+color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( -24, -8, -24, 8, 24, 8, 24, -8 )
+
+[connection signal="pressed" from="cont_but" to="." method="_on_cont_but_pressed"]
+[connection signal="pressed" from="menu_but" to="." method="_on_menu_but_pressed"]
+[connection signal="toggled" from="music_but" to="." method="_on_music_but_toggled"]

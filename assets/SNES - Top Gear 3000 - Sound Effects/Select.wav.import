@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Select.wav-ed19c1070f1c6fb617d624315b0b13e6.sample"
+
+[deps]
+
+source_file="res://assets/SNES - Top Gear 3000 - Sound Effects/Select.wav"
+dest_files=[ "res://.import/Select.wav-ed19c1070f1c6fb617d624315b0b13e6.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,100 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://tracks/track_k3.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Camera.gd" type="Script" id=2]
+[ext_resource path="res://powers/power_bomb.tscn" type="PackedScene" id=3]
+[ext_resource path="res://post_process_outlines.shader" type="Shader" id=4]
+[ext_resource path="res://levels/lvl.gd" type="Script" id=5]
+[ext_resource path="res://levels/lvl2_env.tres" type="Environment" id=6]
+[ext_resource path="res://hud/pause_hud.tscn" type="PackedScene" id=7]
+[ext_resource path="res://powers/power_nitro.tscn" type="PackedScene" id=9]
+[ext_resource path="res://powers/power_MagicPaint.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/power_pick.wav" type="AudioStream" id=11]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 4 )
+shader_param/color_outline_scale = 2.0
+shader_param/depth_outline_scale = 2.0
+shader_param/depth_threshold = 2.5
+shader_param/depth_multiplier = 1000.0
+shader_param/edge_threshold = 0.04
+shader_param/max_edge_alpha = 0.8
+shader_param/edge_alpha_multiplier = 3.0
+shader_param/edge_color = Color( 0, 0, 0, 1 )
+shader_param/depth_use_laplace = true
+shader_param/color_use_laplace = false
+shader_param/use_bg_texture = false
+
+[sub_resource type="QuadMesh" id=7]
+material = SubResource( 1 )
+size = Vector2( 2, 2 )
+
+[node name="lvl2" type="Spatial"]
+script = ExtResource( 5 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 6 )
+
+[node name="track" parent="." instance=ExtResource( 1 )]
+transform = Transform( 6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.709866, 0.704337, 0, -0.704337, -0.709866, 0, 83.4295, 0 )
+light_color = Color( 0.14902, 0.368627, 0.556863, 1 )
+light_energy = 2.0
+shadow_enabled = true
+shadow_color = Color( 0.6, 0.6, 0.6, 1 )
+shadow_contact = 0.34
+directional_shadow_mode = 0
+directional_shadow_normal_bias = 0.5
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -0.454814, 0, 0.890586, 0, 1, 0, -0.890586, 0, -0.454814, 55.7557, 4.29647, 0 )
+doppler_tracking = 2
+current = true
+far = 1000.0
+script = ExtResource( 2 )
+offset = Vector3( 0, 3, 5 )
+
+[node name="OutlineShader" type="MeshInstance" parent="Camera"]
+visible = false
+mesh = SubResource( 7 )
+material/0 = null
+
+[node name="Player" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.48595, 2.10541, -2.93465 )
+
+[node name="pause" parent="." instance=ExtResource( 7 )]
+
+[node name="music" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
+volume_db = -8.0
+
+[node name="MagicPaint" parent="." instance=ExtResource( 10 )]
+transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 20.8321, 1, 15.3639 )
+
+[node name="bomb_pos" type="Spatial" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 7.615, 1, 86.411 )
+
+[node name="bomb" parent="bomb_pos" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="Nitro" parent="." instance=ExtResource( 9 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 44.776, 1, 19.106 )
+
+[node name="MagicPaint2" parent="." instance=ExtResource( 10 )]
+transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -65.7122, 1, 11.6944 )
+
+[node name="bomb_pos2" type="Spatial" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -59.1762, 1, 11.6944 )
+
+[node name="bomb" parent="bomb_pos2" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="Nitro2" parent="." instance=ExtResource( 9 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -62.3752, 1, 11.6944 )
+
+[node name="power_pick_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+
+[connection signal="finished" from="music" to="." method="_on_music_finished"]

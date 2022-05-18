@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Warp Exit.wav-f381ff24f64553e3763b3a4c8de4f7e7.sample"
+
+[deps]
+
+source_file="res://assets/SNES - Top Gear 3000 - Sound Effects/Warp Exit.wav"
+dest_files=[ "res://.import/Warp Exit.wav-f381ff24f64553e3763b3a4c8de4f7e7.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
