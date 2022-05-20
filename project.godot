@@ -21,7 +21,6 @@ default_bus_layout=""
 
 [autoload]
 
-DebugOverlay="res://debug/DebugOverlay.tscn"
 GameManager="*res://GameManager.gd"
 SceneChanger="*res://SceneChanger.tscn"
 

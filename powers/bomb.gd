@@ -11,7 +11,6 @@ var original_pos : Vector3
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Ball.sleeping = true
-	print(translation)
 	original_pos = translation
 	pass # Replace with function body.
 
@@ -21,8 +20,7 @@ func _on_Area_body_entered(body: Node):
 	var is_ai = body.get_parent().name.to_lower().count("ai")>0
 	if attacking and is_car:
 		if not body.get_parent().invencible:
-			get_parent().get_parent().get_node("music").stop()
-			SceneChanger.game_over()
+			get_parent().get_parent().get_node("gameOver").game_over()
 	elif attacking and is_ai:
 		body.get_parent().get_parent().remove_child(body.get_parent())
 	elif is_car and not attacking:

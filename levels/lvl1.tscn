@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://tracks/track_1.tscn" type="PackedScene" id=1]
 [ext_resource path="res://powers/power_bomb.tscn" type="PackedScene" id=2]
@@ -8,8 +8,12 @@
 [ext_resource path="res://levels/lvl1_env.tres" type="Environment" id=6]
 [ext_resource path="res://hud/pause_hud.tscn" type="PackedScene" id=7]
 [ext_resource path="res://powers/power_MagicPaint.tscn" type="PackedScene" id=8]
+[ext_resource path="res://hud/gameOver.tscn" type="PackedScene" id=9]
 [ext_resource path="res://powers/power_nitro.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/power_pick.wav" type="AudioStream" id=11]
+[ext_resource path="res://cars/AI_Car.tscn" type="PackedScene" id=12]
+[ext_resource path="res://hud/game_hud.tscn" type="PackedScene" id=13]
+[ext_resource path="res://hud/win_game.tscn" type="PackedScene" id=14]
 
 [sub_resource type="ShaderMaterial" id=6]
 shader = ExtResource( 4 )
@@ -29,6 +33,9 @@ shader_param/use_bg_texture = false
 material = SubResource( 6 )
 size = Vector2( 2, 2 )
 
+[sub_resource type="RayShape" id=8]
+length = 10.0
+
 [node name="lvl1" type="Spatial"]
 script = ExtResource( 5 )
 
@@ -39,12 +46,10 @@ environment = ExtResource( 6 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -0.709866, 0.704337, 0, -0.704337, -0.709866, 0, 83.4295, 0 )
-light_energy = 2.0
 shadow_enabled = true
 shadow_color = Color( 0.6, 0.6, 0.6, 1 )
 shadow_contact = 0.34
-directional_shadow_mode = 0
-directional_shadow_normal_bias = 0.5
+directional_shadow_depth_range = 1
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 55.7557, 4.29647, 4.58956 )
@@ -65,6 +70,12 @@ volume_db = -8.0
 [node name="Player" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, 6 )
 
+[node name="gameOver" parent="." instance=ExtResource( 9 )]
+
+[node name="game_hud" parent="." instance=ExtResource( 13 )]
+
+[node name="win_game" parent="." instance=ExtResource( 14 )]
+
 [node name="pause" parent="." instance=ExtResource( 7 )]
 
 [node name="MagicPaint" parent="." instance=ExtResource( 8 )]
@@ -74,7 +85,6 @@ transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 67.791, 1, -13 )
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 74.327, 1, -13 )
 
 [node name="bomb" parent="bomb_pos" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="Nitro" parent="." instance=ExtResource( 10 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 71.128, 1, -13 )
@@ -83,7 +93,6 @@ transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 71.128, 1, -13 )
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -88.7736, 1, -84.4048 )
 
 [node name="bomb" parent="bomb_pos2" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="MagicPaint2" parent="." instance=ExtResource( 8 )]
 transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -46.5585, 1, -42.0474 )
@@ -94,4 +103,14 @@ transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -43.2215, 1, -58.6083 )
 [node name="power_pick_sfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
 
+[node name="AI_Car" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5918, 1.65066, 6.9376 )
+
+[node name="lap" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.94232, 0.552597, 1.13841 )
+
+[node name="CollisionShape" type="CollisionShape" parent="lap"]
+shape = SubResource( 8 )
+
 [connection signal="finished" from="music" to="." method="_on_music_finished"]
+[connection signal="body_entered" from="lap" to="." method="_on_Area_body_entered"]

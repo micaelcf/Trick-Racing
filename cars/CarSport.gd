@@ -30,6 +30,7 @@ func _ready():
 		ball.sleeping = true
 
 
+
 func _process(delta):
 	if is_show:	# caso esteja em modo de visualização, encerra a função
 		return
@@ -116,3 +117,9 @@ func align_with_y(xform, new_y):
 	xform.basis = xform.basis.orthonormalized()
 	return xform
 		
+
+
+func _on_timer_timeout():
+	if not is_show:
+		get_parent().get_node("gameOver").game_over()
+	pass # Replace with function body.

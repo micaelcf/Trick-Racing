@@ -7,6 +7,9 @@ data = PoolVector3Array( -3.4573, 0.14, -1.05, -3.5, 0.05, -1.05, -3.4573, 0.05,
 
 [node name="track_k3" instance=ExtResource( 1 )]
 
+[node name="mergedBlocksClone" parent="." index="0"]
+use_in_baked_light = true
+
 [node name="CollisionShape" type="CollisionShape" parent="." index="1"]
 visible = false
 shape = SubResource( 1 )

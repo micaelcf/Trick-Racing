@@ -24,42 +24,6 @@ albedo_texture = ExtResource( 3 )
 
 [sub_resource type="Animation" id=5]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("CarMesh/SpotLight:translation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( -0.482332, 0.607543, -1.37246 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("CarMesh/SpotLight2:translation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( 0.480761, 0.607543, -1.37246 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("CarMesh/car_camera:translation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( 0, 1.00583, -0.604586 ) ]
-}
 
 [sub_resource type="Animation" id=8]
 resource_name = "decrease"
@@ -190,6 +154,7 @@ tracks/4/keys = {
 [node name="CarTruck" type="Spatial"]
 script = ExtResource( 1 )
 car_color = Color( 0.176471, 0.168627, 0.168627, 1 )
+invencible = true
 
 [node name="CarMesh" type="Spatial" parent="."]
 
@@ -247,7 +212,12 @@ visible = false
 mesh = SubResource( 3 )
 material/0 = SubResource( 4 )
 
+[node name="timer" type="Timer" parent="."]
+wait_time = 180.0
+
 [node name="animation" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 5 )
 anims/decrease = SubResource( 8 )
 anims/increase = SubResource( 7 )
+
+[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]

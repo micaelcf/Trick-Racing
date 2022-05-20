@@ -25,9 +25,11 @@ func _on_Area_body_entered(body: Spatial):
 #		print(car)
 		car.get_node("animation").play("increase")
 		visible = false
+		$Area.monitoring = false
 		$buff_timer.start()
 		car.get_parent().get_node("power_pick_sfx").play()
 	
 func _on_buff_timer_timeout():
 	visible = true
+	$Area.monitoring = true
 	car.get_node("animation").play("decrease")

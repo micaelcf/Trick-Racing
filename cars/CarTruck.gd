@@ -30,12 +30,10 @@ func _ready():
 	ground_ray.add_exception(ball)
 	if is_show:
 		ball.sleeping = true
+
 	var new_mat = SpatialMaterial.new()
 	new_mat.albedo_color = car_color
 	$CarMesh/truck/tmpParent/truck/body.set_surface_material(1, new_mat)
-#	DebugOverlay.stats.add_property(ball, "linear_velocity", "length")
-#	DebugOverlay.draw.add_vector(ball, "linear_velocity", 1, 4, Color(0, 1, 0, 0.5))
-#	DebugOverlay.draw.add_vector(car_mesh, "transform:basis:z", -4, 4, Color(1, 0, 0, 0.5))
 
 func _process(delta):
 	if is_show:
@@ -126,3 +124,8 @@ func align_with_y(xform, new_y):
 	xform.basis = xform.basis.orthonormalized()
 	return xform
 		
+
+
+func _on_timer_timeout():
+	if not is_show:
+		get_parent().get_node("gameOver").game_over()

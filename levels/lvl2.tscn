@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://tracks/track_k3.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Camera.gd" type="Script" id=2]
@@ -7,9 +7,16 @@
 [ext_resource path="res://levels/lvl.gd" type="Script" id=5]
 [ext_resource path="res://levels/lvl2_env.tres" type="Environment" id=6]
 [ext_resource path="res://hud/pause_hud.tscn" type="PackedScene" id=7]
+[ext_resource path="res://hud/gameOver.tscn" type="PackedScene" id=8]
 [ext_resource path="res://powers/power_nitro.tscn" type="PackedScene" id=9]
 [ext_resource path="res://powers/power_MagicPaint.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/power_pick.wav" type="AudioStream" id=11]
+[ext_resource path="res://hud/game_hud.tscn" type="PackedScene" id=12]
+[ext_resource path="res://hud/win_game.tscn" type="PackedScene" id=13]
+[ext_resource path="res://assets/kenney_racing_kit/checkers.material" type="Material" id=14]
+
+[sub_resource type="PlaneMesh" id=8]
+size = Vector2( 2, 6 )
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 4 )
@@ -29,8 +36,12 @@ shader_param/use_bg_texture = false
 material = SubResource( 1 )
 size = Vector2( 2, 2 )
 
+[sub_resource type="RayShape" id=9]
+length = 6.0
+
 [node name="lvl2" type="Spatial"]
 script = ExtResource( 5 )
+laps_to_win = 5
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 6 )
@@ -38,14 +49,18 @@ environment = ExtResource( 6 )
 [node name="track" parent="." instance=ExtResource( 1 )]
 transform = Transform( 6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0 )
 
+[node name="checkers" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.686913, -0.0378144, 0.0642985, -3.00211 )
+mesh = SubResource( 8 )
+material/0 = ExtResource( 14 )
+
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -0.709866, 0.704337, 0, -0.704337, -0.709866, 0, 83.4295, 0 )
-light_color = Color( 0.14902, 0.368627, 0.556863, 1 )
+light_color = Color( 0.141176, 0.329412, 0.490196, 1 )
 light_energy = 2.0
 shadow_enabled = true
 shadow_color = Color( 0.6, 0.6, 0.6, 1 )
 shadow_contact = 0.34
-directional_shadow_mode = 0
 directional_shadow_normal_bias = 0.5
 
 [node name="Camera" type="Camera" parent="."]
@@ -62,7 +77,13 @@ mesh = SubResource( 7 )
 material/0 = null
 
 [node name="Player" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.48595, 2.10541, -2.93465 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.43037, 2.10541, -2.93465 )
+
+[node name="gameOver" parent="." instance=ExtResource( 8 )]
+
+[node name="game_hud" parent="." instance=ExtResource( 12 )]
+
+[node name="win_game" parent="." instance=ExtResource( 13 )]
 
 [node name="pause" parent="." instance=ExtResource( 7 )]
 
@@ -77,7 +98,6 @@ transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 20.8321, 1, 15.3639 )
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 7.615, 1, 86.411 )
 
 [node name="bomb" parent="bomb_pos" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="Nitro" parent="." instance=ExtResource( 9 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 44.776, 1, 19.106 )
@@ -89,7 +109,6 @@ transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -65.7122, 1, 11.6944 )
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -59.1762, 1, 11.6944 )
 
 [node name="bomb" parent="bomb_pos2" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="Nitro2" parent="." instance=ExtResource( 9 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -62.3752, 1, 11.6944 )
@@ -97,4 +116,11 @@ transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -62.3752, 1, 11.6944 )
 [node name="power_pick_sfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
 
+[node name="lap" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.105351, 0.552597, -5.9219 )
+
+[node name="CollisionShape" type="CollisionShape" parent="lap"]
+shape = SubResource( 9 )
+
 [connection signal="finished" from="music" to="." method="_on_music_finished"]
+[connection signal="body_entered" from="lap" to="." method="_on_lap_body_entered"]

@@ -13,16 +13,14 @@ func _ready():
 
 func _process(delta):
 	rotate_y(delta)
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 
 func _on_Area_body_entered(body):
 	var is_car = body.get_parent().name.to_lower().count("car")>0
 	var is_ai = body.get_parent().name.to_lower().count("ai")>0
-	if is_car and not is_ai:
+	if is_car:
 		visible = false
+		$Area.monitoring = false
 		car = body.get_parent()
 		save_acceleration = car.acceleration 
 		save_turn_speed = car.turn_speed
@@ -36,6 +34,7 @@ func _on_Area_body_entered(body):
 
 func _on_nitro_timer_timeout():
 	visible = true
+	$Area.monitoring = true
 	car.acceleration = save_acceleration
 	car.turn_speed = save_turn_speed
 #	print(car.acceleration, "   ", car.turn_speed)

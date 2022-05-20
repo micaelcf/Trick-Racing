@@ -9,7 +9,7 @@ func _ready():
 	visible = false
 
 	
-func game_over():
+func win():
 #	visible = true
 	get_parent().get_node("music").stream_paused = true
 	$an.play("over")

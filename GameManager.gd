@@ -9,6 +9,7 @@ var i_car = 0
 var i_music = 0
 var i_track = 0
 var music_paused = false
+var i_lap = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

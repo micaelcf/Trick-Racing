@@ -10,8 +10,8 @@ onready var right_wheel = $CarMesh/tmpParent/truck/wheel_frontRight
 onready var left_wheel = $CarMesh/tmpParent/truck/wheel_frontLeft
 onready var body_mesh = $CarMesh/tmpParent/truck/body
 
-
 export (bool) var show_debug = false
+export (bool) var invencible = false
 var sphere_offset = Vector3(0, -1.5, .5)
 var acceleration = 45
 var steering = 40
@@ -32,7 +32,6 @@ var chosen_dir = Vector3.ZERO
 var forward_ray
 
 func _ready():
-	ball.add_collision_exception_with(car_mesh)
 	$CarMesh/tmpParent/truck/body.mesh.surface_set_material(1, red_paint)
 	$Ball/DebugMesh.visible = show_debug
 	ground_ray.add_exception(ball)
@@ -41,7 +40,6 @@ func _ready():
 	interest.resize(num_rays)
 	danger.resize(num_rays)
 	add_rays()
-	
 	
 func add_rays():
 	var angle = 2 * PI / num_rays
@@ -56,7 +54,7 @@ func add_rays():
 func set_interest():
 	var path_direction = -car_mesh.transform.basis.z
 	if owner and owner.has_method("get_path_direction"):
-		path_direction = owner.get_path_direction(ball.global_transform.origin)
+		path_direction = owner.get_path_direction(ball.global_transform.origin) if owner.get_path_direction(ball.global_transform.origin) else path_direction
 	for i in num_rays:
 		var d = -$CarMesh/ContextRays.get_child(i).global_transform.basis.z
 		d = d.dot(path_direction)
@@ -104,16 +102,7 @@ func _process(delta):
 		var d = ball.global_transform.origin.distance_to(forward_ray.get_collision_point())
 		if d < brake_distance:
 			speed_input -=  10 * acceleration * (1 - d/brake_distance)
-	
-	#smoke?
-	var d = ball.linear_velocity.normalized().dot(-car_mesh.transform.basis.z)
-	if ball.linear_velocity.length() > 5.5 and d < 0.9:
-		$CarMesh/Smoke.emitting = true
-		$CarMesh/Smoke2.emitting = true
-	else:
-		$CarMesh/Smoke.emitting = false
-		$CarMesh/Smoke2.emitting = false
-	
+
 	# rotate car mesh
 	if ball.linear_velocity.length() > turn_stop_limit:
 		var new_basis = car_mesh.global_transform.basis.rotated(car_mesh.global_transform.basis.y, rotate_input)

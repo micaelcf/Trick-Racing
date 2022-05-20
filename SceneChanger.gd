@@ -18,8 +18,4 @@ func change_scene(new_scene, a):
 
 func play_scene():
 	get_tree().change_scene(scene)
-	
-func game_over():
-	visible = true
-	$ColorRect.visible = false
-	$gameOver.game_over()
+
