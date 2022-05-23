@@ -25,8 +25,8 @@ func _on_Area_body_entered(body):
 		save_acceleration = car.acceleration 
 		save_turn_speed = car.turn_speed
 #		print(car.acceleration, "   ", car.turn_speed)
-		car.acceleration = 70
-		car.turn_speed = 7
+		car.acceleration += 20
+		car.turn_speed += 2
 		$nitro_timer.start()
 		car.get_parent().get_node("power_pick_sfx").play()
 		
@@ -35,6 +35,6 @@ func _on_Area_body_entered(body):
 func _on_nitro_timer_timeout():
 	visible = true
 	$Area.monitoring = true
-	car.acceleration = save_acceleration
-	car.turn_speed = save_turn_speed
+	car.acceleration -= 20
+	car.turn_speed -= 2
 #	print(car.acceleration, "   ", car.turn_speed)

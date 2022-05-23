@@ -78,28 +78,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, 6 )
 
 [node name="pause" parent="." instance=ExtResource( 7 )]
 
-[node name="MagicPaint" parent="." instance=ExtResource( 8 )]
-transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 67.791, 1, -13 )
-
-[node name="bomb_pos" type="Spatial" parent="."]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 74.327, 1, -13 )
-
-[node name="bomb" parent="bomb_pos" instance=ExtResource( 2 )]
-
-[node name="Nitro" parent="." instance=ExtResource( 10 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 71.128, 1, -13 )
-
-[node name="bomb_pos2" type="Spatial" parent="."]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -88.7736, 1, -84.4048 )
-
-[node name="bomb" parent="bomb_pos2" instance=ExtResource( 2 )]
-
-[node name="MagicPaint2" parent="." instance=ExtResource( 8 )]
-transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -46.5585, 1, -42.0474 )
-
-[node name="Nitro2" parent="." instance=ExtResource( 10 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -43.2215, 1, -58.6083 )
-
 [node name="power_pick_sfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
 
@@ -111,6 +89,24 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.94232, 0.552597, 1.13841 )
 
 [node name="CollisionShape" type="CollisionShape" parent="lap"]
 shape = SubResource( 8 )
+
+[node name="bomb" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 67.9776, 1, -13 )
+
+[node name="MagicPaint" parent="." instance=ExtResource( 8 )]
+transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 73.6715, 1, -13 )
+
+[node name="Nitro" parent="." instance=ExtResource( 10 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 71.0214, 1, -13 )
+
+[node name="bomb2" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -58.278, 1, -18.044 )
+
+[node name="MagicPaint2" parent="." instance=ExtResource( 8 )]
+transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -35.27, 1, -41.846 )
+
+[node name="Nitro2" parent="." instance=ExtResource( 10 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -35.535, 1, -58.191 )
 
 [connection signal="finished" from="music" to="." method="_on_music_finished"]
 [connection signal="body_entered" from="lap" to="." method="_on_Area_body_entered"]

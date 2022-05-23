@@ -53,6 +53,7 @@ tracks/0/keys = {
 }
 
 [node name="bomb" type="Spatial"]
+transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0 )
 script = ExtResource( 2 )
 
 [node name="original_pos" type="Spatial" parent="."]
@@ -79,7 +80,7 @@ material/0 = SubResource( 5 )
 shape = SubResource( 6 )
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 5.0
 
 [node name="anim" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 8 )

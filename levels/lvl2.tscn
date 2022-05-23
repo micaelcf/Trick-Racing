@@ -91,28 +91,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.43037, 2.10541, -2.93465 )
 pause_mode = 2
 volume_db = -8.0
 
-[node name="MagicPaint" parent="." instance=ExtResource( 10 )]
-transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 20.8321, 1, 15.3639 )
-
-[node name="bomb_pos" type="Spatial" parent="."]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 7.615, 1, 86.411 )
-
-[node name="bomb" parent="bomb_pos" instance=ExtResource( 3 )]
-
-[node name="Nitro" parent="." instance=ExtResource( 9 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 44.776, 1, 19.106 )
-
-[node name="MagicPaint2" parent="." instance=ExtResource( 10 )]
-transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -65.7122, 1, 11.6944 )
-
-[node name="bomb_pos2" type="Spatial" parent="."]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -59.1762, 1, 11.6944 )
-
-[node name="bomb" parent="bomb_pos2" instance=ExtResource( 3 )]
-
-[node name="Nitro2" parent="." instance=ExtResource( 9 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -62.3752, 1, 11.6944 )
-
 [node name="power_pick_sfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
 
@@ -121,6 +99,24 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.105351, 0.552597, -5.9219 )
 
 [node name="CollisionShape" type="CollisionShape" parent="lap"]
 shape = SubResource( 9 )
+
+[node name="bomb" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -65.9822, 1, 9.90667 )
+
+[node name="MagicPaint" parent="." instance=ExtResource( 10 )]
+transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -60.2882, 1, 9.90667 )
+
+[node name="Nitro" parent="." instance=ExtResource( 9 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -62.9384, 1, 9.90667 )
+
+[node name="Nitro2" parent="." instance=ExtResource( 9 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 35.0016, 1, -1.942 )
+
+[node name="MagicPaint2" parent="." instance=ExtResource( 10 )]
+transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 20.6183, 1, 74.21 )
+
+[node name="bomb2" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 17.784, 1, 2.871 )
 
 [connection signal="finished" from="music" to="." method="_on_music_finished"]
 [connection signal="body_entered" from="lap" to="." method="_on_lap_body_entered"]
